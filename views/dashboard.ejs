@@ -106,7 +106,7 @@
 						<strong>Blog Actions:</strong>
 						<div class="dashActionFlex">
 							<div class="dashActionBtn">
-								<form action="/blogs/update/<%= blogDetail._id %>" method="PUT">
+								<form action="/blogs/updateState/<%= blogDetail._id %>" method="PUT">
 									<% if (blogDetail.state === "Draft") { %>
 									<input type="hidden" name="state" value="Published" />
 									<button

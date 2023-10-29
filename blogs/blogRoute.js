@@ -39,7 +39,7 @@ blogRouter.post("/create", async (req, res) => {
 blogRouter.post("/update/:id", controller.updateBlog)
 
 // POST route to change blog state (Draft and Published)
-blogRouter.post("/update/:id", controller.changeStatus)
+blogRouter.post("/updateState/:id", controller.changeStatus)
 
 // POST route to delete user blog
 blogRouter.post("/delete/:id", controller.deleteBlog)
