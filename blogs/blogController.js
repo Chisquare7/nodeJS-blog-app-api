@@ -1,0 +1,167 @@
+const blogModel = require("../models/blogModel")
+
+const createBlog = async ({ title, description, author, state, read_count, reading_time, tags, body, timestamp }) => {
+    
+    const blogDetails = { title, description, author, state, read_count, reading_time, tags, body, timestamp };
+
+    const existingBlog = await blogModel.findOne({ title: blogDetails.title });
+
+    if (existingBlog) {
+        return {
+            message: "Oops! A blog with the same title already exists",
+            code: 403
+        }
+    }
+
+    const newBlog = await blogModel.create(blogDetails);
+
+    if (!newBlog) {
+        return {
+            message: "An error occurred while creating the blog",
+            code: 500,
+        };
+    }
+
+
+    return {
+        message: "Blog created successfully",
+        code: 200,
+        newBlog
+    }
+}
+
+
+const changeStatus = (req, res) => {
+    const id = req.params.id
+    const update = req.body
+
+    blogModel.findByIdAndUpdate(id, update, { new: true })
+        .then(newStatus => {
+            res.redirect("/dashboard");
+        }).catch(error => {
+            console.log(error)
+            res.status(500).send(error)
+        })
+}
+
+const deleteBlog = (req, res) => {
+	const id = req.params.id;
+
+	blogModel
+		.findByIdAndRemove(id)
+		.then((newDelete) => {
+			res.redirect("/dashboard");
+		})
+		.catch((error) => {
+			console.log(error);
+			res.status(500).send(error);
+		});
+};
+
+
+const updateBlog = (req, res) => {
+    const blogId = req.params.id;
+    const update = req.body;
+
+    blogModel
+        .findOneAndUpdate({ _id: blogId, author: res.locals.user._id }, update, { new: true })
+        .then((updateBlog) => {
+            if (!updateBlog) {
+                res.redirect("/dashboard");
+            } else {
+                res.redirect("/dashboard");
+            }
+        }).catch((error) => {
+            console.log(error);
+			res.status(500).send(error);
+        })
+}
+
+
+// Controller for my-blog to filter by state
+const userBlogLists = async (req, res) => {
+
+    const user = res.locals.user;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const filter = req.query.filter || "all";
+
+    const query = { author: user._id };
+
+    if (filter !== "all") {
+        query.state = filter;
+    }
+
+    try {
+        const totalBlogs = await blogModel.countDocuments(query);
+        const totalPages = Math.ceil(totalBlogs / limit);
+        const skip = (page - 1) * limit;
+
+        const userAllBlogs = await blogModel
+            .find(query)
+            .skip(skip)
+            .limit(limit)
+            .sort({ timestamp: -1 })
+            .populate("author", "first_name last_name");
+        
+        
+        res.status(200).render("userAllBlogs", {
+            user,
+            userAllBlogs,
+            currentPage: page,
+            totalPages,
+            filter,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
+    }
+}
+
+
+const retrieveUserBlogs = async(userId) => {
+    try {
+        const userBlogs = await blogModel.find({ author: userId })
+        
+        return userBlogs
+    } catch (error) {
+        console.error(error)
+        throw error;
+    }
+}
+
+
+const getOneBlog = async (req, res) => {
+    const blogId = req.params._id
+
+    try {
+        const oneBlog = await blogModel
+        .findById(blogId)
+        .populate("author", "first_name last_name");
+        
+        if (!oneBlog) {
+            return res.status(404).send("Oops! Blog is not found")
+        }
+
+        oneBlog.read_count += 1;
+        await oneBlog.save()
+
+        res.status(200).render("oneBlog", {
+            oneBlog: oneBlog,
+            user: res.locals.user,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error)
+    }
+}
+
+module.exports = {
+	createBlog,
+	changeStatus,
+	deleteBlog,
+	updateBlog,
+	userBlogLists,
+	retrieveUserBlogs,
+	getOneBlog,
+};

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../public/style.css" />
+		<title><%=appName%> | An Author Blog</title>
+	</head>
+	<body>
+		<div class="overall">
+			<div class="navContainer">
+				<div class="appName">
+					<a href="/home" class="appName"><%=appName%></a>
+				</div>
+				<div><%-include("partials/header.ejs")-%></div>
+			</div>
+			<div class="oneBlog-HeroFlex">
+				<div class="oneBlog-Col">
+					<div class="oneBlogHeading">
+						<h1 class="oneBlogHead"><%= oneBlog.title %></h1>
+					</div>
+					<div class="oneBlogDesc">
+						<p class="oneBlogSubhead"><%= oneBlog.description %></p>
+					</div>
+					<div class="oneBlogTimeline">
+						<div class="eachTime">
+							<p class="eachTimeText">
+								<%= oneBlog.timestamp.toLocaleDateString('en-US', { year:
+								'numeric', month: 'short', day: 'numeric' }) %>
+							</p>
+						</div>
+						<div class="eachTime">
+							<p class="eachTimeText"><%= oneBlog.reading_time %> minutes</p>
+						</div>
+						<div class="eachTime">
+							<p class="eachTimeText onlyTags"><%= oneBlog.tags %></p>
+						</div>
+					</div>
+					<div class="oneBlogAuthor">
+						<p class="oneBlogAuthorName">
+							<% if (oneBlog.author) { %> <%- oneBlog.author.first_name %>
+							<%- oneBlog.author.last_name %> <% } else { %> Author
+							information not available <% } %>
+						</p>
+					</div>
+				</div>
+				<div class="oneBlog-Col">
+					<img src="../public/oneBlogHero.jpg" alt="An hard coded icon" />
+				</div>
+			</div>
+			<div class="blogMainContext">
+				<p class="blogMainContent"><%= oneBlog.body %></p>
+			</div>
+			<div><%-include("partials/footer.ejs")-%></div>
+		</div>
+	</body>
+</html>

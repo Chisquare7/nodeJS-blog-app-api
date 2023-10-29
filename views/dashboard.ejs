@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../public/style.css" />
+		<title><%=appName%> | Author Dashboard</title>
+	</head>
+	<body>
+		<div class="overall">
+			<header>
+				<div class="navContainer">
+					<div class="appName">
+						<a href="/home" class="appName"><%=appName%></a>
+					</div>
+					<div><%-include("partials/header.ejs")-%></div>
+				</div>
+			</header>
+			<div>
+				<h1 class="dashHead">
+					Welcome, Author! Your creative journey begins here. Let's craft and
+					share your stories with the world on BlogVoyage.
+				</h1>
+				<p class="heroSubhead">
+					You've set sail on your BlogVoyage adventure. This is your creative
+					haven, where your stories come to life. Your dashboard is your command
+					center, your canvas, and your stage.
+				</p>
+				<p class="heroSubhead">
+					Feel the pulse of your words, navigate through your drafts, and share
+					your latest masterpiece with the world. We can't wait to see where
+					your journey leads.
+				</p>
+				<p class="heroSubhead">Happy writing!</p>
+			</div>
+			<div class="eachBlogDash">
+				<% blogDetails.forEach(function(blogDetail, index) { %>
+				<div class="blogDashPad">
+					<div class="dashHeading">
+						<h2 class="dashHeads"><%= blogDetail.title %></h2>
+					</div>
+					<div class="dashDescript">
+						<h4 class="dashDescription"><%= blogDetail.description %></h4>
+					</div>
+					<div class="dashBlogContents">
+						<div class="content-truncated">
+							<p class="dashMainBlog blogtexts">
+								<%= blogDetail.body.substring(0, 400) %>
+							</p>
+							<button class="readMoreButton">Read more</button>
+						</div>
+						<div class="content-full">
+							<p class="dashMainBlog blogtexts"><%= blogDetail.body %></p>
+						</div>
+						<div class="content-full">
+							<p class="dashMainBlog blogtexts"><%= blogDetail.body %></p>
+							<button class="readMoreButton">Read less</button>
+						</div>
+					</div>
+					<div class="dashBlogInfos">
+						<div class="infoLeft">
+							<div class="infoLeftContext">
+								<strong>
+									Blog Author:
+									<p class="eachDashInfo">
+										<%= blogDetail.author.first_name %> <%=
+										blogDetail.author.last_name %>
+									</p>
+								</strong>
+							</div>
+							<div class="infoLeftContext">
+								<strong>
+									Date Created:
+									<p class="eachDashInfo">
+										<%= blogDetail.timestamp.toLocaleDateString('en-US', { year:
+										'numeric', month: 'short', day: 'numeric' }) %>
+									</p>
+								</strong>
+							</div>
+							<div class="infoLeftContext">
+								<strong>
+									Status:
+									<p class="eachDashInfo"><%= blogDetail.state %></p>
+								</strong>
+							</div>
+						</div>
+						<div class="infoRight">
+							<table>
+								<thead>
+									<tr>
+										<th>Blog Tags</th>
+										<th>Read Count</th>
+										<th>Reading Time</th>
+									</tr>
+								</thead>
+								<tbody>
+									<td><%= blogDetail.tags %></td>
+									<td><%= blogDetail.read_count %></td>
+									<td><%= blogDetail.reading_time %> minutes</td>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="dashActions">
+						<strong>Blog Actions:</strong>
+						<div class="dashActionFlex">
+							<div class="dashActionBtn">
+								<form action="/blogs/update/<%= blogDetail._id %>" method="PUT">
+									<% if (blogDetail.state === "Draft") { %>
+									<input type="hidden" name="state" value="Published" />
+									<button
+										type="submit"
+										formmethod="post"
+										class="eachButton comBtn"
+									>
+										Publish
+									</button>
+									<% } else { %>
+									<input type="hidden" name="state" value="Draft" />
+									<button
+										type="submit"
+										formmethod="post"
+										class="eachButton pendBtn"
+									>
+										Unpublish
+									</button>
+									<% } %>
+								</form>
+							</div>
+							<div class="dashActionBtn">
+								<form
+									action="/blogs/delete/<%= blogDetail._id %>"
+									method="DELETE"
+								>
+									<button
+										type="submit"
+										formmethod="post"
+										class="eachButton delBtn"
+									>
+										Delete
+									</button>
+								</form>
+							</div>
+							<div class="dashActionBtn">
+								<button class="eachButton editButton">
+									<a href="/edit/<%= blogDetail._id %>" class="editButton"
+										>Edit</a
+									>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<% }); %>
+			</div>
+			<div><%-include("partials/footer.ejs")-%></div>
+		</div>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const readMoreButtons = document.querySelectorAll(".readMoreButton");
+
+				readMoreButtons.forEach((button) => {
+					button.addEventListener("click", () => {
+						console.log("Button clicked");
+						const content = button.closest(".dashBlogContents");
+						content.classList.toggle("show-full-content");
+
+						if (content.classList.contains("show-full-content")) {
+							button.textContent = "Read more";
+						} else {
+							button.textContent = "Read less";
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

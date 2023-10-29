@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../public/style.css" />
+		<title><%=appName%> | Create A Blog</title>
+	</head>
+	<body>
+		<div class="overall_bg">
+			<div class="overall">
+				<header>
+					<div class="navContainer">
+						<div class="appName"><a href="/home"class="appName"><%=appName%></a></div>
+						<div><%-include("partials/header.ejs")-%></div>
+					</div>
+				</header>
+				<div>
+					<h1 class="dashHead createBlogHead">
+						Craft Your Story ... Give life to your ideas and start crafting your blog.
+					</h1>
+				</div>
+				<main>
+					<form action="/blogs/create" method="post">
+						<label for="title" class="labelContainer loginInput">
+							Title
+							<input
+								type="text"
+								id="title"
+								name="title"
+								placeholder="Blog Title"
+								class="inputField"
+								required
+							/>
+						</label>
+						<label for="description" class="labelContainer loginInput">
+							Description
+							<textarea name="description" id="description" cols="30" rows="10" class="inputField" placeholder="Write your blog description here" required></textarea>
+						</label>
+						<label for="tags" class="labelContainer loginInput">
+							Tags
+							<input
+								type="text"
+								id="tags"
+								name="tags"
+								placeholder="Blog Tags"
+								class="inputField"
+								required
+							/>
+						</label>
+						<label for="body" class="labelContainer loginInput">
+							Blog Content
+							<textarea name="body" id="body" cols="30" rows="10" class="inputField" placeholder="Write your blog content here" required></textarea>
+						</label>
+						<div>
+							<button type="submit" class="createTaskButton">
+								Create a Blog	
+							</button>
+						</div>
+					</form>
+				</main>
+			</div>
+		</div>
+	</body>
+</html>

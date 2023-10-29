@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../public/style.css" />
+		<title><%=appName%> | Author Blog Lists</title>
+	</head>
+	<body>
+		<div class="overall">
+			<div class="navContainer">
+				<div class="appName">
+					<a href="/home" class="appName"><%=appName%></a>
+				</div>
+				<div><%-include("partials/header.ejs")-%></div>
+			</div>
+			<main>
+				<h3 class="labelContainer">Filter by State</h3>
+				<div class="userBlogFlex">
+					<button class="blogActField userBlog">
+						<a href="/my-blogs">All</a>
+					</button>
+					<button class="blogActField userBlog">
+						<a href="/my-blogs/sort?state=Draft">View Drafted Blogs</a>
+					</button>
+					<button class="blogActField userBlog">
+						<a href="/my-blogs/sort?state=Published">View Published Blogs</a>
+					</button>
+				</div>
+				<div class="blogContainerFlex">
+					<div class="eachBoxes">
+						<% userAllBlogs.forEach(function(blogInfo) { %>
+						<div class="boxPad">
+							<div class="blogHeading">
+								<h1 class="blogHead"><%= blogInfo.title %></h1>
+							</div>
+							<div class="tagTime">
+								<div><p class="blogTag"><%= blogInfo.tags %></p></div>
+								<div>
+									<p class="publishTime blogtexts">
+										<%= blogInfo.timestamp.toLocaleDateString('en-US', { year:
+										'numeric', month: 'short', day: 'numeric' }) %>
+									</p>
+								</div>
+							</div>
+							<div class="readCount">
+								<div class="blogStatus">
+									<p class="blogState"><%= blogInfo.state %></p>
+								</div>
+								<div>
+									<p class="blogtexts"><%= blogInfo.reading_time %> minutes</p>
+								</div>
+							</div>
+							<div class="blogSubtext">
+								<div class="content-truncated">
+									<p class="blogSubhead blogtexts">
+										<%= blogInfo.description.substring(0, 50) %>
+									</p>
+									<button class="readMoreButton">Read more</button>
+								</div>
+								<div class="content-full">
+									<p class="blogSubhead blogtexts">
+										<%= blogInfo.description %>
+									</p>
+								</div>
+								<div class="content-full">
+									<p class="blogSubhead blogtexts">
+										<%= blogInfo.description %>
+									</p>
+									<button class="readMoreButton">Read less</button>
+								</div>
+							</div>
+							<div class="authorBox">
+								<h3 class="authorName">
+									<%= blogInfo.author.first_name %> <%=
+									blogInfo.author.last_name %>
+								</h3>
+							</div>
+						</div>
+						<% }); %>
+					</div>
+				</div>
+				<div class="blogPagination">
+					<% if (currentPage > 1) { %>
+					<a
+						href="/my-blogs/sort?state=<%= state %>&page=<%= currentPage - 1 %>"
+						class="paginateText"
+						>Previous</a
+					>
+					<% } %>
+					<span class="paginateText"
+						>Page <%= currentPage %> of <%= totalPages %></span
+					>
+					<% if (currentPage < totalPages) { %>
+					<a
+						href="/my-blogs/sort?state=<%= state %>&page=<%= currentPage + 1 %>"
+						class="paginateText"
+						>Next</a
+					>
+					<% } %>
+				</div>
+			</main>
+			<div><%-include("partials/footer.ejs")-%></div>
+		</div>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const readMoreButtons = document.querySelectorAll(".readMoreButton");
+
+				readMoreButtons.forEach((button) => {
+					button.addEventListener("click", () => {
+						console.log("Button clicked");
+						const content = button.closest(".blogSubtext");
+						content.classList.toggle("show-full-content");
+
+						if (content.classList.contains("show-full-content")) {
+							button.textContent = "Read more";
+						} else {
+							button.textContent = "Read less";
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

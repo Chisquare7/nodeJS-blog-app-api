@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../public/style.css" />
+        <title><%=appName%> | Error page</title>
+	</head>
+	<body>
+        <div class="overall">
+			<header>
+				<div class="navContainer">
+					<div class="appName">
+						<a href="/home" class="appName"><%=appName%></a>
+					</div>
+					<div><%-include("partials/header.ejs")-%></div>
+				</div>
+			</header>
+			<div class="errorContainer">
+				<div class="errorHeading"><h1 class="errorHead">500 Internal Server Error.</h1></div>
+				<div class="errorSubhead"><p class="errorText"> We apologize for the inconvenience. Please come back later.</p></div>
+			</div>
+		</div>
+    </body>
+</html>

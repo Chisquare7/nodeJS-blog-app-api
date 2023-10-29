@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../public/style.css" />
+		<title><%=appName%> | All Blog Lists</title>
+	</head>
+	<body>
+		<div class="overall">
+			<div>
+				<div class="navContainer">
+					<div class="appName">
+						<a href="/home" class="appName"><%=appName%></a>
+					</div>
+					<div><%-include("partials/header.ejs")-%></div>
+				</div>
+				<div>
+					<h1 class="dashHead createBlogHead">
+						Discover Engaging Stories ... Dive into a sea of thought-provoking
+						posts.
+					</h1>
+				</div>
+				<main>
+					<form
+						action="/blogs?search=<%= search %>"
+						method="get"
+						class="blogPageAct"
+					>
+						<label for="search" class="labelContainer blogLabels">
+							Blog search
+							<input
+								type="text"
+								name="search"
+								placeholder="Search Blog by Author, Title or Tags"
+								class="blogActField"
+								value="<%- search %>"
+							/>
+						</label>
+						<label for="order" class="labelContainer blogLabels">
+							Order Blog by
+							<select name="order" id="order" class="blogActField">
+								<option value="-timestamp">Latest blogs</option>
+								<option value="timestamp">Oldest blogs</option>
+								<option value="read_count">Most Read</option>
+								<option value="reading_time">
+									Reading Time (Ascending order)
+								</option>
+							</select>
+						</label>
+						<label for="submit" class="labelContainer blogLabels">
+							<input
+								type="submit"
+								value="Apply Filter"
+								class="blogActField filterBtn"
+							/>
+						</label>
+					</form>
+					<div class="blogContainerFlex">
+						<div class="eachBoxes">
+							<% blogDetails.forEach(function(blogDetail) { %>
+							<div class="boxPad">
+								<div class="tagTime">
+									<div><p class="blogTag"><%- blogDetail.tags %></p></div>
+									<div>
+										<p class="publishTime blogtexts">
+											<%- blogDetail.timestamp.toLocaleDateString('en-US', {
+											year: 'numeric', month: 'short', day: 'numeric' }) %>
+										</p>
+									</div>
+								</div>
+								<div class="blogHeading">
+									<a href="/blogs/<%= blogDetail._id %>">
+										<h1 class="blogHead"><%- blogDetail.title %></h1>
+									</a>
+								</div>
+								<div class="blogSubtext">
+									<div class="content-truncated">
+										<p class="blogSubhead blogtexts">
+											<%= blogDetail.description.substring(0, 50) %>
+										</p>
+										<button class="readMoreButton">Read more</button>
+									</div>
+									<div class="content-full">
+										<p class="blogSubhead blogtexts">
+											<%= blogDetail.description %>
+										</p>
+									</div>
+									<div class="content-full">
+										<p class="blogSubhead blogtexts">
+											<%= blogDetail.description %>
+										</p>
+										<button class="readMoreButton">Read less</button>
+									</div>
+								</div>
+								<div class="authorBox">
+									<h3 class="authorName">
+										<% if (blogDetail.author) { %> <%-
+										blogDetail.author.first_name %> <%-
+										blogDetail.author.last_name %> <% } else { %> Author
+										information not available <% } %>
+									</h3>
+								</div>
+							</div>
+							<% }); %>
+						</div>
+					</div>
+				</main>
+			</div>
+			<div class="pagination">
+				<% if (currentPage > 1) { %>
+				<a
+					href="/blogs?page=<%= currentPage - 1 %>&limit=<%= limit %>&filter=<%= filter %>&search=<%= search %>&order=<%= order %>"
+					>Previous</a
+				>
+				<% } %> <% if (currentPage < totalPages) { %>
+				<a
+					href="/blogs?page=<%= currentPage + 1 %>&limit=<%= limit %>&filter=<%= filter %>&search=<%= search %>&order=<%= order %>"
+					>Next</a
+				>
+				<% } %>
+			</div>
+			<div><%-include("partials/footer.ejs")-%></div>
+		</div>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const readMoreButtons = document.querySelectorAll(".readMoreButton");
+
+				readMoreButtons.forEach((button) => {
+					button.addEventListener("click", () => {
+						console.log("Button clicked");
+						const content = button.closest(".blogSubtext");
+						content.classList.toggle("show-full-content");
+
+						if (content.classList.contains("show-full-content")) {
+							button.textContent = "Read more";
+						} else {
+							button.textContent = "Read less";
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

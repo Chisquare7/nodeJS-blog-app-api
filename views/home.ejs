@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../public/style.css" />
+		<title><%=appName%> | Home</title>
+	</head>
+	<body>
+		<div class="overall_bg">
+			<div class="overall">
+				<header>
+					<div class="navContainer">
+						<div class="appName"><a href="/home" class="appName"><%=appName%></a></div>
+						<div><%-include("partials/header.ejs")-%></div>
+					</div>
+				</header>
+				<main>
+					<div class="heroFlex">
+						<div class="heroCol">
+							<div class="heroHeading">
+								<h1 class="heroHead">
+									Explore Your Journey! <br />
+									Discover, Create, Share
+								</h1>
+							</div>
+							<div class="heroSubtext">
+								<p class="heroSubhead">
+									Welcome to <span><%=appName%></span>, your passport to a world
+									of stories and ideas. Whether you're a seasoned writer
+									or a budding blogger, <%=appName%> is your trusted companion in
+									the realm of blogging.
+								</p>
+								<p class="heroSubhead">
+									Unleash your imagination, share your thoughts, and connect
+									with fellow wordsmiths. Join us
+									on this literary adventure and let your voyage begin.
+								</p>
+								<p class="heroSubhead">
+									<%=appName%>: Where every word is an adventure waiting to be
+									shared.
+								</p>
+							</div>
+							<div class="heroAction">
+								<button class="actionBtn"><a href="/signup">Register</a></button>
+								<button class="actionBtn"><a href="/login">Login</a></button>
+							</div>
+						</div>
+						<div class="heroCol">
+							<img src="../public/blogHero.jpg" alt="blog Hero icon" class="heroImg" />
+						</div>
+					</div>
+				</main>
+				<div><%-include("partials/footer.ejs")-%></div>
+			</div>
+		</div>
+	</body>
+</html>
