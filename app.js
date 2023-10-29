@@ -278,6 +278,15 @@ app.get("/invalidUserDetails", (req, res) => {
 });
 
 
+app.get("*", (req, res) => {
+	logger.error("Route not found");
+	return res.status(404).json({
+		data: null,
+		error: "Route not found",
+	});
+});
+
+
 app.listen(PORT, () => {
 	console.log(`App server started running at: http://localhost:${PORT}`);
 });
