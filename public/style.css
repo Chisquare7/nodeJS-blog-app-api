@@ -231,8 +231,8 @@ li + li {
 }
 
 .regFormCenter {
-	margin: 0 auto;
-	height: 80%;
+	margin: 3em auto 0;
+	height: 100vh;
 	width: 80%;
 }
 
