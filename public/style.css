@@ -231,13 +231,16 @@ li + li {
 }
 
 .regFormCenter {
-	margin: 3em auto 0;
+	margin: 0em auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	height: 100vh;
 	width: 80%;
 }
 
 .formContainer {
-	margin-top: 1.5em;
+	margin-top: 1em;
 }
 
 .formHeading {
@@ -246,25 +249,25 @@ li + li {
 
 .formHead {
 	color: var(--main-text-color);
-	font-size: 3rem;
+	font-size: 2.5rem;
 	font-weight: 600;
-	line-height: 1.5rem;
+	line-height: 1rem;
 	margin-bottom: 0.5em;
 }
 
 .formSubhead {
 	color: var(--main-text-color);
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 	font-weight: 400;
 }
 
 .labelContainer {
 	display: flex;
 	flex-direction: column;
-	font-size: 1.3rem;
+	font-size: 1.1rem;
 	color: var(--main-text-color);
 	font-weight: 500;
-	line-height: 1.25rem;
+	line-height: 1rem;
 	margin-top: 0.6em;
 	margin-bottom: 0.2em;
 }
@@ -273,10 +276,10 @@ li + li {
 	padding: 0.625em 0.875em;
 	outline: none;
 	border-radius: 0.5rem;
-	font-size: 1.5rem;
+	font-size: 1.1rem;
 	color: var(--input-field-color);
 	font-weight: 400;
-	line-height: 1.5rem;
+	line-height: 1rem;
 	margin-top: 0.3em;
 }
 
@@ -287,7 +290,7 @@ li + li {
 	border: none;
 	border-radius: 0.5rem;
 	outline: none;
-	font-size: 1.5rem;
+	font-size: 1.1rem;
 	font-weight: 600;
 	line-height: 1.5rem;
 	color: var(--primary-color);
@@ -298,14 +301,14 @@ li + li {
 .loginPoint {
 	text-align: center;
 	color: var(--main-text-color);
-	font-size: 1.5rem;
+	font-size: 1.1rem;
 	font-weight: 400;
 	margin-top: 1.5em;
 }
 
 .loginPoint > a {
 	color: var(--secondary-color);
-	font-size: 1.5rem;
+	font-size: 1.1rem;
 	font-weight: 600;
 }
 
