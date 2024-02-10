@@ -292,7 +292,7 @@ li + li {
 	outline: none;
 	font-size: 1.1rem;
 	font-weight: 600;
-	line-height: 1.5rem;
+	line-height: 1.1rem;
 	color: var(--primary-color);
 	background-color: var(--secondary-color);
 	cursor: pointer;
@@ -603,7 +603,6 @@ table td {
 	padding-top: 8em;
 	width: 80%;
 	margin: 0 auto;
-	border: 1px solid red;
 }
 
 .blogMainContent {

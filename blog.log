@@ -8,3 +8,4 @@
 {"level":"error","message":"Route not found","service":"todo-component"}
 {"level":"error","message":"Route not found","service":"todo-component"}
 {"level":"info","message":"Blog created successfully: A nice update","service":"todo-component"}
+{"level":"info","message":"User account logged in: nwauwa.kelechi.e@gmail.com","service":"todo-component"}
