@@ -1,19 +1,22 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const controller = require("./blogController");
+const { userAuthenticator } = require("../globalAuth/globalMiddleware")
 
 const blogRouter = express.Router();
 
 blogRouter.use(cookieParser());
 
 // POST route to handle creation of blog post
-blogRouter.post("/create", async (req, res) => {
+blogRouter.post("/create", userAuthenticator, async (req, res) => {
     console.log("Request body:", req.body);
     const user = res.locals.user
 
     // Algorithms for calculating reading_time
     const countingWords = req.body.body.split(" ").length;
-    const readTime = Math.ceil(countingWords / 200)
+    const readTime = Math.ceil(countingWords / 200);
+
+    req.body.timestamp = new Date();
 
     const response = await controller.createBlog({
         title: req.body.title,

@@ -3,3 +3,8 @@
 {"level":"info","message":"Blog state changed for blog with ID 653dbb31100a4d1db07472e9: Draft","service":"todo-component"}
 {"level":"info","message":"Blog state changed for blog with ID 653dbacd100a4d1db07472d9: Published","service":"todo-component"}
 {"level":"info","message":"Blog state changed for blog with ID 653dbb31100a4d1db07472e9: Published","service":"todo-component"}
+{"level":"info","message":"User account logged in: nwauwa.kelechi.e@gmail.com","service":"todo-component"}
+{"level":"info","message":"User account logged in: nwauwa.kelechi.e@gmail.com","service":"todo-component"}
+{"level":"error","message":"Route not found","service":"todo-component"}
+{"level":"error","message":"Route not found","service":"todo-component"}
+{"level":"info","message":"Blog created successfully: A nice update","service":"todo-component"}

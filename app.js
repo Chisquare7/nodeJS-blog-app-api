@@ -6,6 +6,7 @@ const { databaseConnect } = require("./config/mongoose");
 const blogModel = require("./models/blogModel");
 const userRoute = require("./users/userRoute");
 const blogRoute = require("./blogs/blogRoute");
+const logger = require("./config/winston");
 require("dotenv").config();
 
 const PORT = process.env.PORT;
@@ -17,6 +18,7 @@ databaseConnect();
 app.locals.appName = "BlogVoyage";
 
 // app.use sections
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/public", express.static("public"));
