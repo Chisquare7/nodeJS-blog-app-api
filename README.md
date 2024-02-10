@@ -13,10 +13,29 @@ A blogging platform (Blog Voyage) API that allows users to create, read, update,
 To install and run the Blog App on your local machine, follow these steps:
 1. Clone the Blog App repository from GitHub:
 ``` markdown
-
+git clone https://github.com/Chisquare7/nodeJS-blog-app-api.git
 ```
-### Base URL
-The base URL for accessing the Blog App API is: `http://localhost:<PORT>`
+2. Navigate to Project Directory:
+``` markdown
+cd blog-app
+```
+3. Install Dependencies:
+``` markdown
+npm install
+```
+4. Set Environment Variables:
+  - Create a .env file in the root directory and add the following environment variables:
+    ``` markdown
+    PORT: Port number for the application (e.g., 3000).
+    DB_URL: MongoDB connection URL.
+    JWT_SECRET: Your-jwt-secret
+    ```
+5. Run the Application:
+``` markdown
+npm start
+```
+6. Access the Application:
+Once the server runs, you can access the application at `http://localhost:<PORT>` in your web browser.
 ### Endpoints
 #### User Authentication
 - `POST /users/signup` - Sign up a new user.
@@ -101,3 +120,16 @@ Authorization: Bearer <JWT token>
 `PUT /users/updateState/:id`
 Authorization: Bearer <JWT token>
 ```
+### Dependencies
+- Express.js: Web application framework for Node.js.
+- Mongoose: MongoDB object modeling for Node.js.
+- JWT: JSON Web Token for user authentication.
+### Configuration
+- Port: The application runs on the port specified in the `.env` file.
+- Database URL: MongoDB connection URL specified in the `.env` file.
+- JWT Secret: Secret key for JWT token generation specified in the `.env` file.
+### Deployment
+  - Testable URL: [Blog Voyage](https://blog-voyage-app.onrender.com/)
+### Developer
+> Chibuike Chijioke | [LinkedIn](https://www.linkedin.com/in/chibuike-chijioke-47520823a/)
+###### © Code Chi 2024
